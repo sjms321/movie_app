@@ -181,9 +181,10 @@ class _movie_detail extends State<movie_detail> {
                                   if(snapshot.data!.isEmpty){
                                     return Center(child: Text("no rivew"),);
                                   }
+                                  if(snapshot.data!.length>3)snapshot.data!.length=3;
                                   return Column(
                                     children: List<Widget>.generate(
-                                      3,(index){
+                                      snapshot.data!.length,(index){
                                         return Container(
                                             padding: EdgeInsets.all(8),
                                             margin: EdgeInsets.only(bottom:16 ),
