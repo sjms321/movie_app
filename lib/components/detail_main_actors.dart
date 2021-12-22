@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/constrants/api_constants.dart';
 import 'package:movie_app/model/get_main_actors.dart';
 
 class detail_main_actor extends StatefulWidget {
@@ -37,7 +38,7 @@ class _detail_main_actor extends State<detail_main_actor> {
                             decoration:  BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                    image: NetworkImage("https://image.tmdb.org/t/p/w500${snapshot.data!.elementAt(index).image}"),
+                                    image: NetworkImage("${TMDB_BASE_IMAGE_URL}${snapshot.data!.elementAt(index).image}"),
                                     fit: BoxFit.cover)
                             ),
                           ),

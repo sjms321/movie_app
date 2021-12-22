@@ -21,7 +21,7 @@ class _detail_review extends State<detail_review> {
           future: get_reviews(widget.movie_id),
           builder: (BuildContext context, AsyncSnapshot<List<Review>> snapshot) {
             if (snapshot.hasData == false) {
-              return CircularProgressIndicator();
+              return Container();
             }
             if(snapshot.data!.isEmpty){
               return Center(child: Text("no rivew"),);
