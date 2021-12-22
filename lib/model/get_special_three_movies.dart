@@ -31,20 +31,25 @@ Future<List<Movie>> get_special_three_movie(String special) async {
   var data1;
 
   response = await http.get(url);
-  data1 = json.decode(response.body);
+  if(response.statusCode==200){
+    data1 = json.decode(response.body);
 
-  List<Movie> movies = [];
+    List<Movie> movies = [];
 
-  for (int i = 0;i<3;i++) {
-    movies.add(Movie(
-      id: data1["results"].elementAt(i)["id"],
-      title: data1["results"].elementAt(i)["title"],
-      image: data1["results"].elementAt(i)["poster_path"],
-      vote_average: data1["results"].elementAt(i)["vote_average"],
-      release_date: data1["results"].elementAt(i)["release_date"],
-      genres: data1["results"].elementAt(i)["genre_ids"],
-    ));
+    for (int i = 0;i<3;i++) {
+      movies.add(Movie(
+        id: data1["results"].elementAt(i)["id"],
+        title: data1["results"].elementAt(i)["title"],
+        image: data1["results"].elementAt(i)["poster_path"],
+        vote_average: data1["results"].elementAt(i)["vote_average"],
+        release_date: data1["results"].elementAt(i)["release_date"],
+        genres: data1["results"].elementAt(i)["genre_ids"],
+      ));
+    }
+
+    return movies;
+  }else{
+    throw Exception("error!");
   }
 
-  return movies;
 }

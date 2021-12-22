@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/model/get_nowplaying_movies.dart';
 import 'package:movie_app/ui/movie_detail.dart';
 
-
 class now_playing extends StatefulWidget {
   @override
   _now_playing createState() => _now_playing();
 }
 
 class _now_playing extends State<now_playing> {
+
   @override
   Widget build(BuildContext context) {
 

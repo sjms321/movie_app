@@ -24,21 +24,25 @@ Future<List<Main_Actor>> get_actors(int movie_id) async {
   var data1;
 
   response = await http.get(url);
-  data1 = json.decode(response.body);
+  if(response.statusCode==200){
+    data1 = json.decode(response.body);
 
-  List<Main_Actor> actors = [];
+    List<Main_Actor> actors = [];
 
-  for (int i = 0;i< data1["cast"].length;i++) {
+    for (int i = 0;i< data1["cast"].length;i++) {
       actors.add(
           Main_Actor(
-        name:data1["cast"].elementAt(i)["name"],
-        image:data1["cast"].elementAt(i)["profile_path"],
-      )
-    );
+            name:data1["cast"].elementAt(i)["name"],
+            image:data1["cast"].elementAt(i)["profile_path"],
+          )
+      );
 
-    print(actors.elementAt(0).name);
+    }
+
+
+    return actors;
+  }else{
+    throw Exception("error!");
   }
 
-
-  return actors;
 }

@@ -38,16 +38,21 @@ Future<List<Review>> get_reviews(int movie_id) async {
   var data1;
 
   response = await http.get(url);
-  data1 = json.decode(response.body);
+  if(response.statusCode==200){
+    data1 = json.decode(response.body);
 
-  List<Review> reviews = [];
+    List<Review> reviews = [];
 
-  for (int i = 0;i<data1["results"].length;i++) {
-    reviews.add(Review(
-      author : data1["results"].elementAt(i)["author"],
-      content:  data1["results"].elementAt(i)["content"],
-    ));
+    for (int i = 0;i<data1["results"].length;i++) {
+      reviews.add(Review(
+        author : data1["results"].elementAt(i)["author"],
+        content:  data1["results"].elementAt(i)["content"],
+      ));
+    }
+
+    return reviews;
+  }else{
+    throw Exception("error!");
   }
 
-  return reviews;
 }

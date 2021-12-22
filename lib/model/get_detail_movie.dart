@@ -36,19 +36,24 @@ Future<Detail_Movie> get_detail(int movie_id) async {
 
   var data1;
   response = await http.get(url);
-  data1 = json.decode(response.body);
+  if(response.statusCode == 200){
+    data1 = json.decode(response.body);
 
-  Detail_Movie detail_movie = Detail_Movie(
-      title: data1["title"],
-      backdrop: data1["backdrop_path"],
-      poster: data1["poster_path"],
-      vote_average: data1["vote_average"],
-      release_date: data1["release_date"],
-      genres: data1["genres"],
-      adult: data1["adult"],
-      overview: data1["overview"]
-  );
+    Detail_Movie detail_movie = Detail_Movie(
+        title: data1["title"],
+        backdrop: data1["backdrop_path"],
+        poster: data1["poster_path"],
+        vote_average: data1["vote_average"],
+        release_date: data1["release_date"],
+        genres: data1["genres"],
+        adult: data1["adult"],
+        overview: data1["overview"]
+    );
+
+    return detail_movie;
+  }else{
+    throw Exception("error!");
+  }
 
 
-  return detail_movie;
 }
