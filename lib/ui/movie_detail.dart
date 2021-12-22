@@ -199,11 +199,11 @@ class _movie_detail extends State<movie_detail> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text(snapshot.data!.elementAt(index).content,overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Color(0xff616161)),textAlign: TextAlign.start,),
+                                                Text(snapshot.data!.elementAt(index).content,overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Color(0xff616161),fontSize: 12),textAlign: TextAlign.start,),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.end,
                                                   children: [
-                                                    Text(snapshot.data!.elementAt(index).author,style: TextStyle(color: Color(0xffA2A2A2)),)
+                                                    Text(snapshot.data!.elementAt(index).author,style: TextStyle(fontSize: 10,color: Color(0xffA2A2A2)),)
                                                   ],
                                                 )
                                               ],
