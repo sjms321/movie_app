@@ -3,17 +3,6 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/constrants/api_constants.dart';
 
-//제목   0
-//포스터 0
-//adult 0
-//장르   0
-//발매일  0
-//평정    0
-//overview 0
-//출연진?
-
-//리뷰
-
 class Review {
   late String author;
   late String content;
