@@ -29,16 +29,15 @@ class Review {
 
 
 Future<List<Review>> get_reviews(int movie_id) async {
+  var url = Uri.https('api.themoviedb.org', '/3/movie/${movie_id}/reviews', {'q': '{http}','api_key':'cc31252f1eac3f1387dc62e98f8d4425','language':'en-US','page':'1'});
 
-  //개봉예정작작
-  var apiAddr =
-      'https://api.themoviedb.org/3/movie/${movie_id}/reviews?api_key=cc31252f1eac3f1387dc62e98f8d4425&language=en-US&page=1';
-  Response response; //http request의 결과 즉 api 호출의 결과를 받기 위한 변수
 
-  var data1; //api 호출을 통해 받은 정보를 json으로 바꾼 결과를 저장한다.
+  Response response;
 
-  response = await http.get(apiAddr); //필요 api 호출
-  data1 = json.decode(response.body); //받은 정보를 json형태로 decode
+  var data1;
+
+  response = await http.get(url);
+  data1 = json.decode(response.body);
 
   List<Review> reviews = [];
 

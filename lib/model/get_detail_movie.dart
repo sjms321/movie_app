@@ -29,16 +29,13 @@ class Detail_Movie {
 
 
 Future<Detail_Movie> get_detail(int movie_id) async {
+  var url = Uri.https('api.themoviedb.org', '/3/movie/${movie_id}', {'q': '{http}','api_key':'cc31252f1eac3f1387dc62e98f8d4425','language':'ko','append_to_response':'credits'});
 
-  //개봉예정작작
-  var apiAddr =
-      'https://api.themoviedb.org/3/movie/${movie_id}?api_key=cc31252f1eac3f1387dc62e98f8d4425&append_to_response=credits&language=ko';
-  Response response; //http request의 결과 즉 api 호출의 결과를 받기 위한 변수
+  Response response;
 
-  var data1; //api 호출을 통해 받은 정보를 json으로 바꾼 결과를 저장한다.
-
-  response = await http.get(apiAddr); //필요 api 호출
-  data1 = json.decode(response.body); //받은 정보를 json형태로 decode
+  var data1;
+  response = await http.get(url);
+  data1 = json.decode(response.body);
 
   Detail_Movie detail_movie = Detail_Movie(
       title: data1["title"],
