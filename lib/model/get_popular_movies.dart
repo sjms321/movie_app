@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 class PopularMovie {
+  late int id;
   late String image;
   late String title;
   late double vote_average;
@@ -10,6 +11,7 @@ class PopularMovie {
   late String release_date;
 
   PopularMovie({
+    required this.id,
     required this.image,
     required this.title,
     required this.vote_average,
@@ -36,6 +38,7 @@ Future<List<PopularMovie>> get_popular() async {
 
   for (int i = 0;i<3;i++) {
     movies.add(PopularMovie(
+      id:data1["results"].elementAt(i)["id"] ,
       title: data1["results"].elementAt(i)["title"],
       image: data1["results"].elementAt(i)["poster_path"],
       vote_average: data1["results"].elementAt(i)["vote_average"],
