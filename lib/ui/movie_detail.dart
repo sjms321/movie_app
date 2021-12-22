@@ -15,9 +15,7 @@ class _movie_detail extends State<movie_detail> {
       body:SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child:
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+
             Container(
               height: 971,
               width: MediaQuery.of(context).size.width,
@@ -211,8 +209,7 @@ class _movie_detail extends State<movie_detail> {
               ),
             ),
 
-          ],
-        ),
+
       )
 
     );
