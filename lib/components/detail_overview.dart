@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class detail_overview extends StatelessWidget{
+class detail_overview extends StatelessWidget {
   detail_overview(this.text);
   final String text;
   @override
@@ -10,7 +10,10 @@ class detail_overview extends StatelessWidget{
         left: 16,
         right: 16,
         bottom: 503,
-        child: Text(text,style: TextStyle(fontSize: 14,letterSpacing: -0.015,color: Color(0xff828282)),)
-    );
+        child: Text(
+          text,
+          style: TextStyle(
+              fontSize: 14, letterSpacing: -0.015, color: Color(0xff828282)),
+        ));
   }
 }

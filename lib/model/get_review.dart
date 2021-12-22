@@ -12,9 +12,7 @@ import 'package:movie_app/constrants/api_constants.dart';
 //overview 0
 //출연진?
 
-
 //리뷰
-
 
 class Review {
   late String author;
@@ -23,36 +21,36 @@ class Review {
   Review({
     required this.author,
     required this.content,
-
   });
 }
 
-
-
 Future<List<Review>> get_reviews(int movie_id) async {
-  var url = Uri.https(TMDB_API_BASE_URL, '/3/movie/${movie_id}/reviews', {'q': '{http}','api_key':TMDB_API_KEY,'language':'en-US','page':'1'});
-
+  var url = Uri.https(TMDB_API_BASE_URL, '/3/movie/${movie_id}/reviews', {
+    'q': '{http}',
+    'api_key': TMDB_API_KEY,
+    'language': 'en-US',
+    'page': '1'
+  });
 
   Response response;
 
   var data1;
 
   response = await http.get(url);
-  if(response.statusCode==200){
+  if (response.statusCode == 200) {
     data1 = json.decode(response.body);
 
     List<Review> reviews = [];
 
-    for (int i = 0;i<data1["results"].length;i++) {
+    for (int i = 0; i < data1["results"].length; i++) {
       reviews.add(Review(
-        author : data1["results"].elementAt(i)["author"],
-        content:  data1["results"].elementAt(i)["content"],
+        author: data1["results"].elementAt(i)["author"],
+        content: data1["results"].elementAt(i)["content"],
       ));
     }
 
     return reviews;
-  }else{
+  } else {
     throw Exception("error!");
   }
-
 }

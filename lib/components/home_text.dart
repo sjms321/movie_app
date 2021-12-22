@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class home_text extends StatelessWidget{
-  home_text(this.left,this.top,this.text);
+class home_text extends StatelessWidget {
+  home_text(this.left, this.top, this.text);
   final double top;
   final double left;
   final String text;
@@ -14,8 +14,9 @@ class home_text extends StatelessWidget{
       child: Container(
         child: Text(
           text,
-          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-      ),);
+      ),
+    );
   }
 }

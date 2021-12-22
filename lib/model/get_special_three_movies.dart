@@ -21,22 +21,25 @@ class Movie {
   });
 }
 
-
-
 Future<List<Movie>> get_special_three_movie(String special) async {
-  var url = Uri.https(TMDB_API_BASE_URL, '/3/movie/${special}', {'q': '{http}','api_key':TMDB_API_KEY,'language':'en-US','page':'1'});
+  var url = Uri.https(TMDB_API_BASE_URL, '/3/movie/${special}', {
+    'q': '{http}',
+    'api_key': TMDB_API_KEY,
+    'language': 'en-US',
+    'page': '1'
+  });
 
   Response response;
 
   var data1;
 
   response = await http.get(url);
-  if(response.statusCode==200){
+  if (response.statusCode == 200) {
     data1 = json.decode(response.body);
 
     List<Movie> movies = [];
 
-    for (int i = 0;i<3;i++) {
+    for (int i = 0; i < 3; i++) {
       movies.add(Movie(
         id: data1["results"].elementAt(i)["id"],
         title: data1["results"].elementAt(i)["title"],
@@ -48,8 +51,7 @@ Future<List<Movie>> get_special_three_movie(String special) async {
     }
 
     return movies;
-  }else{
+  } else {
     throw Exception("error!");
   }
-
 }
