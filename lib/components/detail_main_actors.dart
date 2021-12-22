@@ -14,20 +14,21 @@ class _detail_main_actor extends State<detail_main_actor> {
   Widget build(BuildContext context) {
     return Positioned(
         top: 532,
-        child:FutureBuilder(
+        child: FutureBuilder(
           future: get_actors(widget.movie_id),
-          builder: (BuildContext context, AsyncSnapshot<List<Main_Actor>> snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Main_Actor>> snapshot) {
             if (snapshot.hasData == false) {
               return Container();
             }
             return Container(
               height: 54,
               width: MediaQuery.of(context).size.width,
-              child:ListView.builder(
+              child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
-                    return  Container(
+                    return Container(
                       padding: EdgeInsets.only(left: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,30 +36,27 @@ class _detail_main_actor extends State<detail_main_actor> {
                           Container(
                             height: 40,
                             width: 40,
-                            decoration:  BoxDecoration(
+                            decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                    image: NetworkImage("${TMDB_BASE_IMAGE_URL}${snapshot.data!.elementAt(index).image}"),
-                                    fit: BoxFit.cover)
-                            ),
+                                    image: NetworkImage(
+                                        "${TMDB_BASE_IMAGE_URL}${snapshot.data!.elementAt(index).image}"),
+                                    fit: BoxFit.cover)),
                           ),
                           Container(
                               height: 12,
                               child: FittedBox(
                                 fit: BoxFit.contain,
-                                child:Text(snapshot.data!.elementAt(index).name,),
-                              )
-
-                          )
+                                child: Text(
+                                  snapshot.data!.elementAt(index).name,
+                                ),
+                              ))
                         ],
                       ),
                     );
-                  }) ,
+                  }),
             );
           },
-
-        )
-    );
+        ));
   }
-
 }
