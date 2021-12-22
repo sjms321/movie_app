@@ -181,9 +181,10 @@ class _movie_detail extends State<movie_detail> {
                                   if(snapshot.data!.isEmpty){
                                     return Center(child: Text("no rivew"),);
                                   }
+                                  if(snapshot.data!.length>3)snapshot.data!.length=3;
                                   return Column(
                                     children: List<Widget>.generate(
-                                      3,(index){
+                                      snapshot.data!.length,(index){
                                         return Container(
                                             padding: EdgeInsets.all(8),
                                             margin: EdgeInsets.only(bottom:16 ),
@@ -199,11 +200,11 @@ class _movie_detail extends State<movie_detail> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text(snapshot.data!.elementAt(index).content,overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Color(0xff616161)),textAlign: TextAlign.start,),
+                                                Text(snapshot.data!.elementAt(index).content,overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Color(0xff616161),fontSize: 12),textAlign: TextAlign.start,),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.end,
                                                   children: [
-                                                    Text(snapshot.data!.elementAt(index).author,style: TextStyle(color: Color(0xffA2A2A2)),)
+                                                    Text(snapshot.data!.elementAt(index).author,style: TextStyle(fontSize: 10,color: Color(0xffA2A2A2)),)
                                                   ],
                                                 )
                                               ],
