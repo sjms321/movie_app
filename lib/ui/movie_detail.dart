@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/components/adult_button.dart';
+import 'package:movie_app/components/detail_main_actors.dart';
+import 'package:movie_app/components/detail_overview.dart';
+import 'package:movie_app/components/detail_review.dart';
+import 'package:movie_app/components/detail_subtitle_text.dart';
 import 'package:movie_app/model/get_detail_movie.dart';
-import 'package:movie_app/model/get_main_actors.dart';
-import 'package:movie_app/model/get_review.dart';
+
 
 class movie_detail extends StatefulWidget {
   final int movie_id;
@@ -17,22 +21,21 @@ class _movie_detail extends State<movie_detail> {
     return Scaffold(
       body:SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
-        child:
-
-            Container(
+        child:Container(
               height: 971,
               width: MediaQuery.of(context).size.width,
               child: FutureBuilder(
                 future: get_detail(widget.movie_id),
                 builder: (BuildContext context, AsyncSnapshot<Detail_Movie> snapshot) {
                   if (snapshot.hasData == false) {
-                    return CircularProgressIndicator();
+                    return Container();
                   }
+                  int countStart = snapshot.data!.vote_average~/2;
+                  if(snapshot.data!.vote_average%2>1) countStart++;
                   return Container(
                       child: Stack(
                         children:[
                           Image.network("https://image.tmdb.org/t/p/w500${snapshot.data!.backdrop}",fit: BoxFit.cover,),
-
                           Positioned(
                             child: Container(
                               decoration: BoxDecoration(
@@ -64,161 +67,49 @@ class _movie_detail extends State<movie_detail> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(snapshot.data!.title),
+                                    Text(snapshot.data!.title,style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,letterSpacing: -0.015),),
                                     snapshot.data!.adult
-                                        ?Text("빨간버튼")
+                                        ?adult_buttton()
                                         :Container(),
+                                    SizedBox(height: 5,),
                                     Row(
                                       children:
                                       List<Widget>.generate(snapshot.data!.genres.length, (index){
-                                        return Text(snapshot.data!.genres.elementAt(index)["name"]+" ");
+                                        return Text(snapshot.data!.genres.elementAt(index)["name"]+" ",style: TextStyle(fontSize: 11,color: Color(0xffB9B9B9),letterSpacing: -0.015),);
                                       }),
                                     ),
-                                    Text(snapshot.data!.release_date),
-                                    Text(snapshot.data!.vote_average.toString()),
+                                    Text(snapshot.data!.release_date+" 발매",style: TextStyle(fontSize: 11,color: Color(0xffB9B9B9),letterSpacing: -0.015)),
+                                    SizedBox(height: 8,),
+                                    Row(
+                                      children: List<Widget>.generate(6,(index){
+                                        if(index ==5)return Text(snapshot.data!.vote_average.toString(),style: TextStyle(color: Color(0xffF1C644),fontSize: 12,fontWeight: FontWeight.bold),);
+                                        if(countStart>0){
+                                          countStart--;
+                                          return Container(
+                                            margin: EdgeInsets.all(2.5),
+                                            child:Icon(
+                                              Icons.star,size:13,color: Color(0xffF1C644),),);
+                                        }
+                                        else return Container(
+                                          margin: EdgeInsets.all(2.5),
+                                          child:Icon(
+                                            Icons.star,size:13,color: Color(0xffC4C4C4),),);
+                                      },),
+                                    ),
                                   ],
                                 ),
                               )
                           ),
-                          Positioned(
-                              top: 301, 
-                              left: 16, 
-                              child: Text("개요",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold))
-                          ),
-                          Positioned(
-                              top: 341,
-                              left: 16,
-                              right: 16,
-                              bottom: 503,
-                              child: Text(snapshot.data!.overview,style: TextStyle(fontSize: 14,letterSpacing: -0.015,color: Color(0xff828282)),)
-                          ),
-
-                          Positioned(
-                              top: 492,
-                              left: 16,
-                              child: Text("주요출연진",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
-                          ),
-
+                          detail_subtitle_text(16, 301, "개요"),
+                          detail_overview(snapshot.data!.overview),
+                          detail_subtitle_text(16, 492, "주요출연진"),
                           Positioned(
                               top: 532,
-                              child:
-                                  FutureBuilder(
-                                    future: get_actors(widget.movie_id),
-                                    builder: (BuildContext context, AsyncSnapshot<List<Main_Actor>> snapshot) {
-                                      if (snapshot.hasData == false) {
-                                        return CircularProgressIndicator();
-                                      }
-                                      return Container(
-                                        height: 54,
-                                        width: MediaQuery.of(context).size.width,
-                                        child:ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: 10,
-                                            itemBuilder: (BuildContext context, int index) {
-                                              return  Container(
-                                                padding: EdgeInsets.only(left: 16),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      height: 40,
-                                                      width: 40,
-                                                      decoration:  BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                          image: DecorationImage(
-                                                              image: NetworkImage("https://image.tmdb.org/t/p/w500${snapshot.data!.elementAt(index).image}"),
-                                                              fit: BoxFit.cover)
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: 12,
-                                                      child: FittedBox(
-                                                        fit: BoxFit.contain,
-                                                        child:Text(snapshot.data!.elementAt(index).name,),
-                                                      )
-
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }) ,
-                                      );
-                                  },
-
-                                  )
-
-
-                                // Row(
-                                //   children:
-                                //   List<Widget>.generate(10,(index){
-                                //     return
-                                //    ;
-                                //   }
-                                //   )
-                                // )
-
-
-
+                              child:detail_main_actor( movie_id: widget.movie_id,)
                           ),
+                          detail_subtitle_text(16, 610, "리뷰"),
+                          detail_review(movie_id: widget.movie_id),
 
-                          Positioned(
-                              top: 610,
-                              left: 16,
-                              child: Text("리뷰",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold))
-                          ),
-
-                          Positioned(
-                              top: 650,
-                              right: 16,
-                              left: 16,
-                              child: FutureBuilder(
-
-                                future: get_reviews(widget.movie_id),
-                                builder: (BuildContext context, AsyncSnapshot<List<Review>> snapshot) {
-                                  if (snapshot.hasData == false) {
-                                    return CircularProgressIndicator();
-                                  }
-                                  if(snapshot.data!.isEmpty){
-                                    return Center(child: Text("no rivew"),);
-                                  }
-                                  if(snapshot.data!.length>3)snapshot.data!.length=3;
-                                  return Column(
-                                    children: List<Widget>.generate(
-                                      snapshot.data!.length,(index){
-                                        return Container(
-                                            padding: EdgeInsets.all(8),
-                                            margin: EdgeInsets.only(bottom:16 ),
-                                            height: 71,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.black26
-                                                ),
-                                                borderRadius: BorderRadius.circular(8)
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(snapshot.data!.elementAt(index).content,overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Color(0xff616161),fontSize: 12),textAlign: TextAlign.start,),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    Text(snapshot.data!.elementAt(index).author,style: TextStyle(fontSize: 10,color: Color(0xffA2A2A2)),)
-                                                  ],
-                                                )
-                                              ],
-                                            )
-
-                                        );
-                                    }
-                                    ),
-                                  );
-
-
-                              },
-                              )
-                          ),
                   ],
                       )
                   );
