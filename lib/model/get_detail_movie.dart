@@ -2,18 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
-//제목   0
-//포스터 0
-//adult 0
-//장르   0
-//발매일  0
-//평정    0
-//overview 0
-//출연진?
-
-
-//리뷰
-
 
 class Detail_Movie {
   late String title;
@@ -24,9 +12,6 @@ class Detail_Movie {
   late String release_date;
   late double vote_average;
   late String overview;
-
-
-
 
 
   Detail_Movie({
