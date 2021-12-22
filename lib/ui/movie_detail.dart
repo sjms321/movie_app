@@ -4,6 +4,9 @@ import 'package:movie_app/model/get_main_actors.dart';
 import 'package:movie_app/model/get_review.dart';
 
 class movie_detail extends StatefulWidget {
+  final int movie_id;
+
+  movie_detail({required this.movie_id});
   @override
   _movie_detail createState() => _movie_detail();
 }
@@ -20,8 +23,11 @@ class _movie_detail extends State<movie_detail> {
               height: 971,
               width: MediaQuery.of(context).size.width,
               child: FutureBuilder(
-                future: get_detail(634649),
+                future: get_detail(widget.movie_id),
                 builder: (BuildContext context, AsyncSnapshot<Detail_Movie> snapshot) {
+                  if (snapshot.hasData == false) {
+                    return CircularProgressIndicator();
+                  }
                   return Container(
                       child: Stack(
                         children:[
@@ -97,8 +103,11 @@ class _movie_detail extends State<movie_detail> {
                               top: 532,
                               child:
                                   FutureBuilder(
-                                    future: get_actors(634649),
+                                    future: get_actors(widget.movie_id),
                                     builder: (BuildContext context, AsyncSnapshot<List<Main_Actor>> snapshot) {
+                                      if (snapshot.hasData == false) {
+                                        return CircularProgressIndicator();
+                                      }
                                       return Container(
                                         height: 54,
                                         width: MediaQuery.of(context).size.width,
@@ -163,8 +172,15 @@ class _movie_detail extends State<movie_detail> {
                               right: 16,
                               left: 16,
                               child: FutureBuilder(
-                                future: get_reviews(634649),
+
+                                future: get_reviews(widget.movie_id),
                                 builder: (BuildContext context, AsyncSnapshot<List<Review>> snapshot) {
+                                  if (snapshot.hasData == false) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  if(snapshot.data!.isEmpty){
+                                    return Center(child: Text("no rivew"),);
+                                  }
                                   return Column(
                                     children: List<Widget>.generate(
                                       3,(index){
@@ -180,9 +196,10 @@ class _movie_detail extends State<movie_detail> {
                                                 borderRadius: BorderRadius.circular(8)
                                             ),
                                             child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text(snapshot.data!.elementAt(index).content,overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Color(0xff616161))),
+                                                Text(snapshot.data!.elementAt(index).content,overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Color(0xff616161)),textAlign: TextAlign.start,),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.end,
                                                   children: [
