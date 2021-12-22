@@ -5,6 +5,7 @@ import 'package:movie_app/components/detail_overview.dart';
 import 'package:movie_app/components/detail_review.dart';
 import 'package:movie_app/components/detail_subtitle_text.dart';
 import 'package:movie_app/model/get_detail_movie.dart';
+import 'package:movie_app/model/get_main_actors.dart';
 
 
 class movie_detail extends StatefulWidget {
@@ -103,10 +104,7 @@ class _movie_detail extends State<movie_detail> {
                           detail_subtitle_text(16, 301, "개요"),
                           detail_overview(snapshot.data!.overview),
                           detail_subtitle_text(16, 492, "주요출연진"),
-                          Positioned(
-                              top: 532,
-                              child:detail_main_actor( movie_id: widget.movie_id,)
-                          ),
+                          detail_main_actor(movie_id: widget.movie_id),
                           detail_subtitle_text(16, 610, "리뷰"),
                           detail_review(movie_id: widget.movie_id),
 
