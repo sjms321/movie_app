@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 class Movie{
+  late int id;
   late String image;
   late String title;
   late double vote_average;
@@ -10,6 +11,7 @@ class Movie{
 
 
   Movie({
+    required this.id,
     required this.image,
     required this.title,
     required this.vote_average,
@@ -35,6 +37,7 @@ Future<List<Movie>> get_nowplaying() async{
   for(int i=0;i<data1["results"].length;i++){
     movies.add(
         Movie(
+          id:  data1["results"].elementAt(i)["id"],
           title: data1["results"].elementAt(i)["title"],
           image: data1["results"].elementAt(i)["poster_path"],
           vote_average: data1["results"].elementAt(i)["vote_average"],

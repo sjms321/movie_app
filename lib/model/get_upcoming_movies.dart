@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 class UpMovie {
+  late int id;
   late String image;
   late String title;
   late double vote_average;
@@ -10,11 +11,12 @@ class UpMovie {
   late String release_date;
 
   UpMovie({
-  required this.image,
-  required this.title,
-  required this.vote_average,
-  required this.genres,
-  required this.release_date,
+    required this.id,
+    required this.image,
+    required this.title,
+    required this.vote_average,
+    required this.genres,
+    required this.release_date,
   });
 }
 
@@ -36,6 +38,7 @@ Future<List<UpMovie>> get_upcomming() async {
 
   for (int i = 0;i<3;i++) {
     movies.add(UpMovie(
+      id: data1["results"].elementAt(i)["id"],
       title: data1["results"].elementAt(i)["title"],
       image: data1["results"].elementAt(i)["poster_path"],
       vote_average: data1["results"].elementAt(i)["vote_average"],
