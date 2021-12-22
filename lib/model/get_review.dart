@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/constrants/api_constants.dart';
 
 //제목   0
 //포스터 0
@@ -29,7 +30,7 @@ class Review {
 
 
 Future<List<Review>> get_reviews(int movie_id) async {
-  var url = Uri.https('api.themoviedb.org', '/3/movie/${movie_id}/reviews', {'q': '{http}','api_key':'cc31252f1eac3f1387dc62e98f8d4425','language':'en-US','page':'1'});
+  var url = Uri.https(TMDB_API_BASE_URL, '/3/movie/${movie_id}/reviews', {'q': '{http}','api_key':TMDB_API_KEY,'language':'en-US','page':'1'});
 
 
   Response response;

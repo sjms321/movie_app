@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/constrants/api_constants.dart';
 
 class Main_Actor {
   late String name;
@@ -16,7 +17,7 @@ class Main_Actor {
 
 Future<List<Main_Actor>> get_actors(int movie_id) async {
 
-  var url = Uri.https('api.themoviedb.org', '/3/movie/${movie_id}/credits', {'q': '{http}','api_key':'cc31252f1eac3f1387dc62e98f8d4425','language':'en-US'});
+  var url = Uri.https(TMDB_API_BASE_URL, '/3/movie/${movie_id}/credits', {'q': '{http}','api_key':TMDB_API_KEY,'language':'en-US'});
 
   Response response;
 

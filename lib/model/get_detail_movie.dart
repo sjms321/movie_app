@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/constrants/api_constants.dart';
 
 
 class Detail_Movie {
@@ -29,7 +30,7 @@ class Detail_Movie {
 
 
 Future<Detail_Movie> get_detail(int movie_id) async {
-  var url = Uri.https('api.themoviedb.org', '/3/movie/${movie_id}', {'q': '{http}','api_key':'cc31252f1eac3f1387dc62e98f8d4425','language':'ko','append_to_response':'credits'});
+  var url = Uri.https(TMDB_API_BASE_URL, '/3/movie/${movie_id}', {'q': '{http}','api_key':TMDB_API_KEY,'language':'ko','append_to_response':'credits'});
 
   Response response;
 
